@@ -9,8 +9,9 @@ public class AccountManager {
 		System.out.println("Initial Balance: " + balance);
 		
 		System.out.println("\n--------------------------");
-		System.out.println("Type    Transaction   Balance");
+		System.out.println("Type  Transaction  Balance");
 		System.out.println("--------------------------");
+
 		
 		/*char type = 'W';
 		double transaction = 2000.0;

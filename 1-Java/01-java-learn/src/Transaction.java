@@ -10,12 +10,22 @@ public class Transaction {
 		this.amount = amount;
 		
 	}
+	
+	public char getType() {
+		return type;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
 	//instance method
 	public void displayTransaction(double balance)
 	{
 		System.out.printf("%4c %12.2f %8.2f\n", type, amount, balance);
 		
 	}
+	
 	
 	public static void main(String args[])
 	{
@@ -33,5 +43,6 @@ public class Transaction {
 			transaction.displayTransaction(5000);
 		}
 	}
+	
 
 }
