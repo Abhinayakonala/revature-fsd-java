@@ -1,17 +1,15 @@
-package com.revature.app.collection;
-
+package com.revature.app.serialization;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import com.revature.app.objectclass.Person;
 
+public class SerializationDemo {
 
-
-public class ListObjectDemo {
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Person person1 = new Person("John", 15 );
 		Person person2 = new Person("Smith", 25);
 		Person person3 = new Person("Stella", 32);
@@ -19,8 +17,6 @@ public class ListObjectDemo {
 		Person person5 = new Person("Maria", 42);
 		Person person6 = new Person("Maria", 13);
 		
-		//maintains insertion order
-		//duplicate items
 		List<Person> personList = new ArrayList<>();
 
 		personList.add(person1);
@@ -28,17 +24,13 @@ public class ListObjectDemo {
 		personList.add(person3);
 		personList.add(person4);
 		personList.add(person5);
+		personList.add(person6);
 		
-		Collections.sort(personList);
-		for(Person person : personList) {
-			System.out.println(person);
-		}
-        System.out.println("Display using Iterator");
+		FileOutputStream fileOutputStream = new FileOutputStream("E:\\person.ser");
+		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 		
-		Iterator<Person> iterator = personList.iterator();
-		while (iterator.hasNext()) {
-			System.out.println(iterator.next());
-		}
+		objectOutputStream.writeObject(personList);
+		fileOutputStream.close();
 		
 	}
 
