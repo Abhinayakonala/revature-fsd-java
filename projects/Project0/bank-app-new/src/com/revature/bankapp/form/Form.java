@@ -9,9 +9,10 @@ public abstract class Form {
 		success = false;
 	}
 	private void displayTitle() {
-		System.out.println("***" + name + "***");
+		
+		System.out.println("****" + name + "****");
+		
 	}
-
 	public void captureDataAndPerformAction() {
 		while (!success) {
 			displayTitle();
@@ -23,5 +24,6 @@ public abstract class Form {
 	public abstract void captureData();
 	
 	public abstract void action();
+
 
 }
