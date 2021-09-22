@@ -31,11 +31,12 @@ public class LoginForm extends Form{
 
 	@Override
 	public void action() {
-	
+		System.out.println();
 		CustomerDaoImpl dao = new CustomerDaoImpl();
 		
 		try {
 			Customer customer = dao.getCustomerUserId(userId);
+			System.out.println(customer);
 			if (customer == null) {
 				System.out.println("Invalid User name or Password");
 			}
