@@ -3,27 +3,30 @@ package com.revature.bankapp.menu;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import com.revature.bankapp.accounts.DisplayAccAndTrans;
+//import com.revature.bankapp.account.ViewAccount;
+import com.revature.bankapp.display.DisplayTransaction;
 import com.revature.bankapp.dao.impl.AccountDaoImpl;
 
-public class WithdrawDeposit extends Menu{
-	
-	public static String accNumber;
+public class TransactionMenu extends Menu {
+
 	public static String transferAccNum;
+
+	CustomerMainMenu cmm = new CustomerMainMenu("Customer Menu");
+	public static String accNumber;
+
 	Scanner sc = new Scanner(System.in);
-	CustomerMenu cm = new CustomerMenu("Customer Menu");
-	
-	public WithdrawDeposit(String name) {
+
+	public TransactionMenu(String name) {
 		super(name);
-		addMenuItems("Withdraw");
-		addMenuItems("Deposit");
-		addMenuItems("View Transactions");
-		addMenuItems("View Balance");
-		addMenuItems("Transfer to account");
-		addMenuItems("Return to Customer Menu");
-		addMenuItems("LogOut");
+		addMenuItem("Withdraw");
+		addMenuItem("Deposit");
+		addMenuItem("View Transactions");
+		addMenuItem("View Balance");
+		addMenuItem("Transfer to account");
+		addMenuItem("Return to Customer Menu");
+		addMenuItem("LogOut");
 	}
-	
+
 	public String getAccount() {
 		System.out.println("Enter Account number to make transaction: ");
 		accNumber = sc.nextLine();
@@ -31,85 +34,85 @@ public class WithdrawDeposit extends Menu{
 		return accNumber;
 	}
 
-
 	@Override
-	void handleSelection() {
-		AccountDaoImpl accdao = new AccountDaoImpl();
+	void handleAction() {
+		AccountDaoImpl accountdao = new AccountDaoImpl();
 		switch (selection) {
 
 		case 1:
 			try {
 				System.out.println("Enter amount to withdraw: ");
 				double amount = sc.nextDouble();
-				accdao.currentAccount().withdraw(amount, accdao);
+				accountdao.currentAccount().withdraw(amount);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			cm.displayMenuLoop();
+			cmm.displayMenuAndCaptureSelection();
 			break;
 
 		case 2:
-			
+
 			try {
 				System.out.println("Enter amount to deposit: ");
 				double amount = sc.nextDouble();
-				accdao.currentAccount().deposit(amount, accdao);
+				accountdao.currentAccount().deposit(amount);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			cm.displayMenuLoop();
+			cmm.displayMenuAndCaptureSelection();
 			break;
-			
+
 		case 3:
 			try {
-				accdao.currentAccount();
+				AccountDaoImpl.currentAccount();
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			DisplayAccAndTrans.transactionsList();
-			cm.displayMenuLoop();
+			DisplayTransaction.TransactionList();
+			cmm.displayMenuAndCaptureSelection();
 			break;
-			
+
 		case 4:
 			try {
-				double balance = accdao.currentAccount().getInitialAmount();
+				double balance = accountdao.currentAccount().getBalance();
 				System.out.println("Balance: " + balance);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			cm.displayMenuLoop();
+			cmm.displayMenuAndCaptureSelection();
 			break;
-		
+
 		case 5:
 			System.out.println("Enter Account Number of receiver: ");
 			transferAccNum = sc.nextLine();
 			System.out.println("Enter amount to transfer: ");
 			double amount = sc.nextDouble();
 			try {
-				accdao.currentAccount().withdraw(amount, accdao);
+				accountdao.currentAccount().withdraw(amount);
 				System.out.println("Initiated");
 			} catch (SQLException e) {
 				e.printStackTrace();
 				System.out.println("withdraw failed");
 			}
 			try {
-				accdao.transferAccount().transfer(amount, accdao);
+				accountdao.transferAccount().transfer(amount);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				System.out.println("deposit failed");
 			}
-			cm.displayMenuLoop();
+			cmm.displayMenuAndCaptureSelection();
 			break;
-			
+
 		case 6:
-			cm.displayMenuLoop();
-			
+			cmm.displayMenuAndCaptureSelection();
+			break;
+
 		case 7:
-			MainMenu mm = new MainMenu("Main Menu");
-			mm.displayMenuLoop();
+			CustomerMainMenu cm = new CustomerMainMenu("Customer Menu");
+			cm.displayMenuAndCaptureSelection();
 		}
-		
+
 	}
 
 }
-

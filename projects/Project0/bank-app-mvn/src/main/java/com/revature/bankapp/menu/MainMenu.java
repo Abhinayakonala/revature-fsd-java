@@ -1,53 +1,73 @@
+
 package com.revature.bankapp.menu;
 
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import com.revature.bankapp.dao.impl.CustomerDaoImpl;
+import com.revature.bankapp.form.CustomerRegistrationForm;
 import com.revature.bankapp.form.EmployeeLogin;
-import com.revature.bankapp.form.LoginForm;
-import com.revature.bankapp.form.SignUp;
+import com.revature.bankapp.form.Login;
+import com.revature.bankapp.model.Customer;
+
+
 public class MainMenu extends Menu {
 
 	public MainMenu(String name) {
 		super(name);
-		addMenuItems("Customer Signup");
-		addMenuItems("Customer Login");
-		addMenuItems("Employee Login");
-		addMenuItems("Exit");
-
+		addMenuItem("Register new Customer");
+		addMenuItem("Login as Customer");
+		addMenuItem("Login as Employee");
+		addMenuItem("Exit");
 	}
 
 	@Override
-	void handleSelection() {
+	void handleAction() {
+		Scanner scanner = new Scanner(System.in);
+		CustomerDaoImpl customerdao = new CustomerDaoImpl();
 		switch (selection) {
-
+		
 		case 1:
 			
-			SignUp signUp = new SignUp("Customer SignUp");
-			signUp.captureDataAndPerformAction();
-			MainMenu mainMenu = new MainMenu("Main Menu");
-			mainMenu.displayMenuLoop();
-			break;
+			System.out.println("\n===");
+			System.out.println("Register new Customer");
+			System.out.println("====\n");
+			
+			System.out.print("First Name: ");
+			String firstName = scanner.nextLine();
+			
+			System.out.print("Last Name: ");
+			String lastName = scanner.nextLine();
 
+			System.out.print("Email: ");
+			String email = scanner.nextLine();
+
+			System.out.print("Password: ");
+			String password = scanner.nextLine();
+			
+			System.out.print("Phoneno: ");
+			String phoneno = scanner.nextLine();
+			
+			try {
+				customerdao.create(new Customer(firstName, lastName, email, password));
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+			System.out.println("Customer added successfully.");
+			displayMenuAndCaptureSelection();
+			break;
 		case 2:
-			
-			LoginForm loginForm = new LoginForm("Customer Login");
+			Login loginForm = new Login("Customer Login Form");
 			loginForm.captureDataAndPerformAction();
-			CustomerMenu customerMenu = new CustomerMenu("Customer Menu");
-			customerMenu.displayMenuLoop();
 			break;
-			
 		case 3:
-			EmployeeLogin empLogin = new EmployeeLogin("Admin Login");
-			empLogin.captureDataAndPerformAction();
+			EmployeeLogin empl = new EmployeeLogin("Employee Login Forn");
+			empl.captureDataAndPerformAction();
 			break;
-		
 		case 4:
-			System.out.println("********Thank you Visit Again **********");
+			System.out.println("Thank You Vist Again...!!!");
 			break;
 		}
-	
-	}
-
-	void handleAction() {
-		// TODO Auto-generated method stub
-		
 	}
 }

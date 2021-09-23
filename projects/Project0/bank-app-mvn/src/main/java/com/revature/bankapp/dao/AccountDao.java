@@ -2,10 +2,10 @@ package com.revature.bankapp.dao;
 
 import java.sql.SQLException;
 
-import com.revature.bankapp.accounts.Account;
+import com.revature.bankapp.model.Account;
 
 public interface AccountDao {
-	
-	void create(Account account) throws SQLException;
+
+	int create(Account account) throws SQLException;
 
 }

@@ -1,5 +1,5 @@
 package com.revature.bankapp.dao;
 
-public interface EmployeeDao {
+public interface TransactionDao {
 
 }

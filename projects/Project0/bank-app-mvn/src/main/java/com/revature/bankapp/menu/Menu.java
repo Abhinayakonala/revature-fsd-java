@@ -2,7 +2,6 @@ package com.revature.bankapp.menu;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public abstract class Menu {
@@ -12,46 +11,26 @@ public abstract class Menu {
 	protected int selection;
 
 	public Menu(String name) {
+
 		this.name = name;
-		menuItems = new ArrayList<String>();
+		menuItems = new ArrayList<>();
+
 	}
 
-	public void addMenuItems(String menuItemsName) {
-		menuItems.add(menuItemsName);
-	}
+	public void addMenuItem(String menuItem) {
 
-	public void displayMenuLoop() {
-		boolean temp = true;
-		while (temp) {
-			try {
-				displayMenuAndCapture();
+		menuItems.add(menuItem);
 
-				if (selection > 0 && selection <= menuItems.size()) {
-					temp = false;
-				} else {
-					System.out.println("Select a valid option from the Menu");
-				}
-			} catch (NumberFormatException e) {
-				System.out.println("Enter Valid Number");
-			} catch (NoSuchElementException e) {
-				System.out.println("Choose Options from the menu");
-			}
-		}
-		handleSelection();
 	}
 
 	public void displayMenu() {
-		System.out.println("*************");
 		System.out.println(name);
-		System.out.println("*************\n");
+		System.out.println("--------------------------------");
 
-		for (int i = 0; i < menuItems.size(); i++) {
-
-			System.out.println((i + 1) + ") " + menuItems.get(i));
-
+		for (int i = 1; i <= menuItems.size(); i++) {
+			System.out.println(i + ")" + menuItems.get(i - 1));
 		}
-
-		System.out.print("Choose a Option: ");
+		System.out.print("Choose any one of the option you want : ");
 	}
 
 	public void captureSelection() {
@@ -59,12 +38,25 @@ public abstract class Menu {
 		selection = Integer.parseInt(sc.nextLine());
 	}
 
-	public void displayMenuAndCapture() {
+	public void displayMenuAndCaptureSelection() {
 		displayMenu();
-		captureSelection();
-//		handleSelection();
+		boolean validoptionSelectedByUser = false;
+		while (!validoptionSelectedByUser) {
+			try {
+				captureSelection();
+				if (selection > 0 && selection <= menuItems.size()) {
+					validoptionSelectedByUser = true;
+				} else {
+					System.out.println("Select Value Between 1 - " + menuItems.size() + "\n");
+				}
+			} catch (Exception e) {
+				System.out.println(e + "\nEnter valid number\n");
+			}
+		}
+
+		handleAction();
 	}
 
-	abstract void handleSelection();
+	abstract void handleAction();
 
 }

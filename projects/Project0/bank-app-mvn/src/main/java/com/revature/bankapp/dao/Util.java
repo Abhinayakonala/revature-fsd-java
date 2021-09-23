@@ -7,19 +7,16 @@ import java.sql.SQLException;
 public class Util {
 	
 	
-	public static Connection getConnection() throws  SQLException {
+	public static Connection getConnection() throws SQLException {
+		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver" );
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		return DriverManager.getConnection( 
-				"jdbc:mysql://localhost:3307/bankapp",
-				"root",
-				"Abhi@2766");
-		
-	}
+		return DriverManager.getConnection("jdbc:mysql://localhost:3307/bankapp", "root", "Abhi@2766");
 
+	}
 
 }

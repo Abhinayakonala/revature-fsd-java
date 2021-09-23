@@ -3,14 +3,14 @@ package com.revature.bankapp.model;
 public class Employee {
 	
 	private String name;
-	private String userId;
+	private String userName;
 	private String password;
 	
 	
-	public Employee(String name, String userId, String password) {
+	public Employee(String name, String userName, String password) {
 		super();
 		this.name = name;
-		this.userId = userId;
+		this.userName = userName;
 		this.password = password;
 	}
 	
@@ -26,12 +26,12 @@ public class Employee {
 		this.name = name;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {

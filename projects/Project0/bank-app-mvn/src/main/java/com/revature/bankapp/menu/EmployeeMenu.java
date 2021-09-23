@@ -2,63 +2,68 @@ package com.revature.bankapp.menu;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
-import com.revature.bankapp.accounts.Account;
-import com.revature.bankapp.accounts.PendingAccounts;
-import com.revature.bankapp.accounts.Transactions;
-import com.revature.bankapp.dao.EmployeeDao;
+import com.revature.bankapp.model.Account;
+import com.revature.bankapp.model.Transactions;
+import com.revature.bankapp.display.DisplayCustomers;
+import com.revature.bankapp.dao.impl.CustomerDaoImpl;
 import com.revature.bankapp.dao.impl.EmployeeDaoImpl;
-import com.revature.bankapp.form.CreateAccount;
-import com.revature.bankapp.form.LoginForm;
-import com.revature.bankapp.form.SignUp;
 import com.revature.bankapp.model.Customer;
 
-public class EmployeeMenu extends Menu{
+public class EmployeeMenu extends Menu {
+	Scanner scanner = new Scanner(System.in);
+	CustomerDaoImpl customerdao = new CustomerDaoImpl();
 
 	public EmployeeMenu(String name) {
 		super(name);
-		addMenuItems("Register for Customer account");
-		addMenuItems("View Customers");
-		addMenuItems("View Accounts");
-		addMenuItems("View Transactions");
-		addMenuItems("Pending Accounts");
-		addMenuItems("Logout");
-		
+		addMenuItem("Register for Customer ");
+		addMenuItem("View Customers");
+		addMenuItem("View Accounts");
+		addMenuItem("View Transactions");
+		addMenuItem("Pending Accounts");
+		addMenuItem("Logout");
 	}
 
 	@Override
-	void handleSelection() {
-		EmployeeDao edao = new EmployeeDaoImpl();
+	void handleAction() {
 		switch(selection) {
+		case 1 :
+			System.out.println("\n===");
+			System.out.println("Register new Customer");
+			System.out.println("====\n");
+			
+			System.out.print("First Name: ");
+			String firstName = scanner.nextLine();
+			
+			System.out.print("Last Name: ");
+			String lastName = scanner.nextLine();
+
+			System.out.print("Email: ");
+			String email = scanner.nextLine();
+
+			System.out.print("Password: ");
+			String password = scanner.nextLine();
+			
 		
-		case 1:
-			SignUp signUp = new SignUp("Customer SignUp");
-			signUp.captureDataAndPerformAction();
 			
-			LoginForm loginForm = new LoginForm("Customer Login");
-			loginForm.captureDataAndPerformAction();
-			
-			CreateAccount createAcc = new CreateAccount("Account details");
-			createAcc.captureDataAndPerformAction();
-			
-			displayMenuLoop();
-			
-			break;
-		case 2:
 			try {
-				List<Customer> list = edao.viewCustomer();
-				for(int i =0; i <list.size(); i++) {
-					System.out.println((i+1) + ") " + list.get(i));
-				}
+				customerdao.create(new Customer(firstName, lastName, email, password));
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
-			displayMenuLoop();
-			break;
+			System.out.println("Customer added successfully.");
+			displayMenuAndCaptureSelection();
+			break;		
+		
+		case 2 :
+			DisplayCustomers.customerList();
+			displayMenuAndCaptureSelection();
+			
 		case 3:
 			try {
-				List<Account> list = edao.viewAccount();
+				List<Account> list = EmployeeDaoImpl.eViewAccount();
 				for(int i =0; i <list.size(); i++) {
 					System.out.println((i+1) + ") " + list.get(i));
 				}
@@ -66,11 +71,11 @@ public class EmployeeMenu extends Menu{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			displayMenuLoop();
+			displayMenuAndCaptureSelection();
 			break;
 		case 4:
 			try {
-				List<Transactions> list = edao.viewTransaction();
+				List<Transactions> list = EmployeeDaoImpl.eViewTransaction();
 				for(int i =0; i <list.size(); i++) {
 					System.out.println((i+1) + ") " + list.get(i));
 				}
@@ -78,21 +83,21 @@ public class EmployeeMenu extends Menu{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			displayMenuLoop();
+			displayMenuAndCaptureSelection();
 			break;
 			
 		case 5:
-			PendingAccounts pa = new PendingAccounts();
-			pa.viewPending();
-			displayMenuLoop();
+			System.out.println("did not implement");
+			displayMenuAndCaptureSelection();
+			break;
+		case 6:
+			System.out.println("Thank you for visiting");
 			break;
 			
-		case 6:
-			MainMenu mm = new MainMenu("Main Menu");
-			mm.displayMenuLoop();
-			break;
-		}
+			
 		
+		}
 	}
+	
 
 }

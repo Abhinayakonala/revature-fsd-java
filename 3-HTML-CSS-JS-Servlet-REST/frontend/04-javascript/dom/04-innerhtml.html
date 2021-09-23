@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Get Element By Id</title>
+    </head>
+    <body>
+        <p id="para">This is a paragraph</p>
+        <p>Another Para.</p>
+        <script>
+            var element = document.getElementById("para")
+            console.log(element.innerHTML);
+            element.innerHTML = "<ul><li>New paragraph content.</li></ul>"
+
+        </script>
+    </body>
+</html>

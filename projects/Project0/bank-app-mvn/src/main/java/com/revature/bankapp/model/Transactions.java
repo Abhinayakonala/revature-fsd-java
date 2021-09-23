@@ -1,24 +1,50 @@
-package com.revature.bankapp.accounts;
+package com.revature.bankapp.model;
 
 public class Transactions {
 
 	private int customerId;
-	private String name;
+	private String FirstName;
+	private String LastName;
+
 	private String accountNumber;
-	private double initialAmount;
+	private double balance;
 	private int accountId;
 	private char type;
+
+	public String getFirstName() {
+		return FirstName;
+	}
+
+	public void setFirstName(String firstName) {
+		FirstName = firstName;
+	}
+
+	public String getLastName() {
+		return LastName;
+	}
+
+	public void setLastName(String lastName) {
+		LastName = lastName;
+	}
+
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
 	private double amount;
 
 	public Transactions(char type, double amount) {
 		this.type = type;
 		this.amount = amount;
 	}
-	
+
 	public Transactions() {
-		
+
 	}
-	
 
 	public int getCustomerId() {
 		return customerId;
@@ -29,11 +55,11 @@ public class Transactions {
 	}
 
 	public String getName() {
-		return name;
+		return FirstName;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.FirstName = name;
 	}
 
 	public String getAccountNumber() {
@@ -45,11 +71,11 @@ public class Transactions {
 	}
 
 	public double getInitialAmount() {
-		return initialAmount;
+		return balance;
 	}
 
 	public void setInitialAmount(double initialAmount) {
-		this.initialAmount = initialAmount;
+		this.balance = initialAmount;
 	}
 
 	public int getAccountId() {
@@ -75,22 +101,15 @@ public class Transactions {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	
+
 	public String print() {
-		return "Type: " + type + "  Amount: "+ amount;
+		return "Type: " + type + "  Amount: " + amount;
 	}
 
 	@Override
 	public String toString() {
-		return "CustomerId: " + customerId + "  Name: " + name + "  Account Number: " + accountNumber
-				+ "  Balance: " + initialAmount + "  Account Id: " + accountId + "  Type: " + type + "  Amount: "
-				+ amount;
+		return "CustomerId: " + customerId + "  Name: " + FirstName + "  Account Number: " + accountNumber
+				+ "  Balance: " + balance + "  Account Id: " + accountId + "  Type: " + type + "  Amount: " + amount;
 	}
-
-
-	
-	
-
-
 
 }
